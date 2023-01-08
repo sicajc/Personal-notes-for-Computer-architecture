@@ -9,7 +9,7 @@ module coding#(
 
            //Interfaces
            //start
-           input[DATA_WIDTH-1:0]      start_data_i,
+           input[DATA_WIDTH-1:0]      start_data_i, // name of interface should be added to aim debugging.
            input                      start_en_i,
            output                     start_rdy_o,
 
