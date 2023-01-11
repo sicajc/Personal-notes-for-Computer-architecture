@@ -12,11 +12,13 @@ It also allows you to review your code or modify your code faster even 1 year la
 ## Algorithm and Testbench
 - First understand the algorithm then recreate it using basic operations,data structures and algorithms without using libraries.
 - The data structure and algorithm you used must be hardware friendly. At the same time, you have to generate the testbench i.e. your golden model for your hardware.
+-  DISCUSS WITH OTHERS
 
 ## ASMD(Control)
 - Convert the algorithm you just derived to ASMD chart to have a clear view about which components are needed.
 - Also it specifies the states and datapath components needed for further simplification and recombination.
 - At the same time, perform FSM factorization(Partition the main CTR into smaller local CTRs) to further simplify the logic of controller.
+- DISCUSS WITH OTHERS
 
 ## Datapath(Microarchitecture)
 - Create and DRAW the datapath from the ASMD chart you just derived. Visualize the main components needed.(RF)(ALU)(MEM) etc...
@@ -38,6 +40,8 @@ It also allows you to review your code or modify your code faster even 1 year la
 - You must connect the blocks with the right interfaces.
 
 - Determine the data width of datapath.
+
+- If possible, DISCUSS WITH OTHERS.
 
 ## The width of wire must be a multiple of 1 or 2. e.g. 2 4 8 16 32 etc... , s.t. you can modularize the circuit later to prevent further nuances.
 
@@ -132,3 +136,7 @@ It also allows you to review your code or modify your code faster even 1 year la
 ## Putting it all together
 - You can use verilog ,systemVerilog, bluespec or even Chisel HDL to realise your microarchitecture.
 - Connect path together! Then test the final result.
+
+
+## Performance Evaluation
+1. Use Performance = PSA , Power(P), Speed(S), Area(A). Remember, sometimes generating more identical hardware might not be always larger due to the optimization of design compiler~
