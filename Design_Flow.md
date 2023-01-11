@@ -1,7 +1,6 @@
 # Design flow
 In every parts, you should make notes, DRAW!!!! and clearly specify WTF you are doing.
 
-
 ## DRAW THE BLOCK DIAGRAM PLEASE
 Drawing the block diagram and specify the signals can aid your debug and allow you to explain your circuit to others.
 It also allows you to review your code or modify your code faster even 1 year later or so. Since you DREW it clearly!
@@ -13,6 +12,9 @@ It also allows you to review your code or modify your code faster even 1 year la
 - First understand the algorithm then recreate it using basic operations,data structures and algorithms without using libraries.
 - The data structure and algorithm you used must be hardware friendly. At the same time, you have to generate the testbench i.e. your golden model for your hardware.
 -  DISCUSS WITH OTHERS
+-  Usually the efficiency of a certain implmentation is dictated by the Algorithm you used.
+-  Algorithm 70% with the RIGHT HW 30%.
+e.g. No one would ever run non-parralizable algorithm on GPU = =, this is handled by OoO CPU. However, parrallel algorithm works fine.
 
 ## ASMD(Control)
 - Convert the algorithm you just derived to ASMD chart to have a clear view about which components are needed.
@@ -20,6 +22,8 @@ It also allows you to review your code or modify your code faster even 1 year la
 - At the same time, perform FSM factorization(Partition the main CTR into smaller local CTRs) to further simplify the logic of controller.
 - DISCUSS WITH OTHERS
 
+## Microarchitecture
+1. DIFFERENT MICROARCHITECTURE IMPACTS THE PERFORMANCE.
 ## Datapath(Microarchitecture)
 - Create and DRAW the datapath from the ASMD chart you just derived. Visualize the main components needed.(RF)(ALU)(MEM) etc...
 
