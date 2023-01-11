@@ -1,5 +1,10 @@
 # Design flow
-In every parts, you should make notes and clearly specify WTF you are doing.
+In every parts, you should make notes, DRAW!!!! and clearly specify WTF you are doing.
+
+
+## DRAW THE BLOCK DIAGRAM PLEASE
+Drawing the block diagram and specify the signals can aid your debug and allow you to explain your circuit to others.
+It also allows you to review your code or modify your code faster even 1 year later or so. Since you DREW it clearly!
 
 ## System Level specfication and Spec
 - You must read the spec carefully. High lighting every details first.
@@ -20,9 +25,9 @@ In every parts, you should make notes and clearly specify WTF you are doing.
 
 - _rf , _alu , _mem , _fifo , _lifo , _bus , _cache , _scoreboard , _epoch , _cnt , _ptr, StackCTR_ , MainCTR_ ;
 
-- For reading a 2 WORD data from RF. rdData_2W_rf.
+- For reading a 2 WORD data from Matrix RF. naming : rdData_2W_matrix_rf. means a 2 word data read out from matrix RF
 
-- The 1W output of ALU. result_W_alu;
+- The 1W output of ALU. W_result_alu means reading 1 word data from alu.
 
 - Specify the interfaces for your functional blocks.
 
