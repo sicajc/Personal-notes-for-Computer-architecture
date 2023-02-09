@@ -16,17 +16,22 @@ It also allows you to review your code or modify your code faster even 1 year la
 -  Algorithm 70% with the RIGHT HW 30%.
 e.g. No one would ever run non-parralizable algorithm on GPU = =, this is handled by OoO CPU. However, parrallel algorithm works fine on GPU but terrible in OoO CPU. Use Amdahl's law to first examine the speedup of your design idea you want to scale up.
 
+> This step should be carefully examined and is the most important step, do not miss the corner cases. Spending a day on this step is alright.
+
 ## ASMD(Control)
-- Specify the WORD(Width of your datapath), the WORD is usually determined by the maximum width of the memory. For example, MIPS architecture has a 32-bit word. Doing so can at least ensure the data can be aligned correctly, also simplify your design if you want to optimize your circuit.
+- Specify the WORD(Width of your datapath), the WORD is usually determined by the maximum width of the memory. For example, MIPS architecture has a 32-bit word. Doing so can at least ensure the data be aligned correctly, also simplify your design if you want to optimize your circuit.
 - Convert the algorithm you just derived to ASMD chart to have a clear view about which components are needed.
 - Also it specifies the states and datapath components needed for further simplification and recombination.
 - At the same time, perform FSM factorization(Partition the main CTR into smaller local CTRs) to further simplify the logic of controller.
 - Using the concept of multi-level FSMs can simplify your design a lot and makes it clear for others and yourself.
-- DISCUSS WITH OTHERS
+> DISCUSS WITH OTHERS
 
 ## Microarchitecture
-1. DIFFERENT MICROARCHITECTURE IMPACTS THE PERFORMANCE.
+> DIFFERENT MICROARCHITECTURE IMPACTS THE PERFORMANCE.
+- Which architecture would you like to use?
+- OoO? Single cycle? Multi-cycle? Pipelined? DAE? Multi-Core? SuperScalar? Systolic? VLIW? They all have their own tradeoffs.
 ## Datapath(Microarchitecture)
+> The priniple of Hierarchical design.
 - Data type of your circuit should be determined ahead. What kind of data you are processing matters a lot. Is it floating point value? Fixed-point? Or signed integer? Unsigned integer? or even binary?
 
 - Create and DRAW the datapath from the ASMD chart you just derived. Visualize the main components needed.(RF)(ALU)(MEM) etc...
@@ -43,7 +48,7 @@ e.g. No one would ever run non-parralizable algorithm on GPU = =, this is handle
 
 - Draw out the RULE(Mimicked from BlueSpec systemVerilog) for mid Complex logic implementation.
 
-- Glue the datapath components using Paper.
+- Glue the datapath components using Paper drawings.
 
 - You must connect the blocks with the right interfaces.
 
@@ -51,9 +56,12 @@ e.g. No one would ever run non-parralizable algorithm on GPU = =, this is handle
 
 - If possible, DISCUSS WITH OTHERS.
 
+* If you are experienced, this might take around an hour or two to complete.
+
 ## The width of wire must be a multiple of 1 or 2. e.g. 2 4 8 16 32 etc... , s.t. you can modularize the circuit later to prevent further nuances.
 
 - Usually 32 is a word = 4 bytes.(W)
+> However, depends on the data width of the Mem you use, this might vary.
 - 16 is halfword(hW)
 - 8 is a byte(B)
 - 4 is halfbyte(hB)
@@ -64,7 +72,7 @@ e.g. No one would ever run non-parralizable algorithm on GPU = =, this is handle
 
 # My naming convention
 0.  interfaces should be the priority for each subBlocks that is going to connect to other subBlocks.e.g. dataOut_rq, dataOut_data,dataOut_rdy. All belongs to dataOut interface.
-1.  control_signal as __IDLE__
+1.  control_signal as $__IDLE__$
 2.  flags as _F, status flag as _sF. (status flags are implemented in register)
 3.  register as _ff
 4.  I/O as _o , _i
@@ -150,6 +158,7 @@ e.g. No one would ever run non-parralizable algorithm on GPU = =, this is handle
 
 
 ## Debug Notes
+### Hardware and problems of microarchtiecture
 1. Check for each always block, have you assigned the wrong signal value?
 2. Check for bit Width declaration, have you assigned the wrong bit Width to your signal?
 3. Check for arithmetic. Which data type are you trying to use? Are the operands of the same data type?
@@ -158,6 +167,12 @@ e.g. No one would ever run non-parralizable algorithm on GPU = =, this is handle
 6. Check for control signals conditions. Did you consider every cases.
 7. Check for sequential assignment and combinational assignment, did you mix use them?
 8. Check for Concatenation and Sign-extension error, did you forget to align or sign-extended the value?
-9. Check for data alignment. When sharing registers, this might occurs, i.e. fitting a 10 bit data into 32 bit register, sign-extension has to be made if it is a signed value or depends on your representation. {12'b0,value,12'b0}, value a B.
-10. Check for VIVADO ERROS and WARNING, this can save you lots of time.
-11. Check for VIVADO SYNTHESIS WARNING, this also can save you lots of time before using DC.
+9. Check for data alignment. When sharing registers, this might occurs, i.e. fitting a 8 bit data into 32 bit register, sign-extension has to be made if it is a signed value or depends on your representation. {12'b0,value,12'b0}, value is a Byte
+10. Check for Sampling rate if Real-time I/O is needed.
+11. Check for VIVADO ERRORS and WARNINGS, this can save you lots of time.
+12. Check for VIVADO SYNTHESIS ERROR AND WARNINGS, this also can save you lots of time before using DC.
+13. Beware to make changes on the paper you scratched whenever your try to modify your code.
+
+### Problems of algorithm
+1. Retrace or recheck the algorithm you use, did you miss some important info? Or did you misunderstand the spec?
+2. Discuss with others about your thought of the algorithm. Trace it again! Or you some High-level language to proof that it is valid and working!
