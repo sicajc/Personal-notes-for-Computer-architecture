@@ -2,7 +2,7 @@
 In every parts, you should make notes, DRAW!!!! and clearly specify WTF you are doing.
 
 ## DRAW THE BLOCK DIAGRAM PLEASE
-Drawing the block diagram and specify the signals can aid your debug and allow you to explain your circuit to others.
+- Drawing the block diagram and specify the signals can aid your debug and allow you to explain your circuit to others.
 It also allows you to review your code or modify your code faster even 1 year later or so. Since you DREW it clearly!
 
 ## System Level specfication and Spec
@@ -14,17 +14,21 @@ It also allows you to review your code or modify your code faster even 1 year la
 -  DISCUSS WITH OTHERS
 -  Usually the efficiency of a certain implmentation is dictated by the Algorithm you used.
 -  Algorithm 70% with the RIGHT HW 30%.
-e.g. No one would ever run non-parralizable algorithm on GPU = =, this is handled by OoO CPU. However, parrallel algorithm works fine.
+e.g. No one would ever run non-parralizable algorithm on GPU = =, this is handled by OoO CPU. However, parrallel algorithm works fine on GPU but terrible in OoO CPU. Use Amdahl's law to first examine the speedup of your design idea you want to scale up.
 
 ## ASMD(Control)
+- Specify the WORD(Width of your datapath), the WORD is usually determined by the maximum width of the memory. For example, MIPS architecture has a 32-bit word. Doing so can at least ensure the data can be aligned correctly, also simplify your design if you want to optimize your circuit.
 - Convert the algorithm you just derived to ASMD chart to have a clear view about which components are needed.
 - Also it specifies the states and datapath components needed for further simplification and recombination.
 - At the same time, perform FSM factorization(Partition the main CTR into smaller local CTRs) to further simplify the logic of controller.
+- Using the concept of multi-level FSMs can simplify your design a lot and makes it clear for others and yourself.
 - DISCUSS WITH OTHERS
 
 ## Microarchitecture
 1. DIFFERENT MICROARCHITECTURE IMPACTS THE PERFORMANCE.
 ## Datapath(Microarchitecture)
+- Data type of your circuit should be determined ahead. What kind of data you are processing matters a lot. Is it floating point value? Fixed-point? Or signed integer? Unsigned integer? or even binary?
+
 - Create and DRAW the datapath from the ASMD chart you just derived. Visualize the main components needed.(RF)(ALU)(MEM) etc...
 
 - DEMUX and MUX ,RF, ALU, MEM, PIPE, FIFO, BUF, STACK, Caches ,BUS, SCOREBOARD ,ScratchBoard,EPOCH, MAIN CTR, I/O interfaces, Global CNT, local controllers.
@@ -141,6 +145,19 @@ e.g. No one would ever run non-parralizable algorithm on GPU = =, this is handle
 - You can use verilog ,systemVerilog, bluespec or even Chisel HDL to realise your microarchitecture.
 - Connect path together! Then test the final result.
 
-
 ## Performance Evaluation
 1. Use Performance = PSA , Power(P), Speed(S), Area(A). Remember, sometimes generating more identical hardware might not be always larger due to the optimization of design compiler~
+
+
+## Debug Notes
+1. Check for each always block, have you assigned the wrong signal value?
+2. Check for bit Width declaration, have you assigned the wrong bit Width to your signal?
+3. Check for arithmetic. Which data type are you trying to use? Are the operands of the same data type?
+4. Check for possibility of Overflow. Did you assign enough bit width to hold your data?
+5. Check for FSM you implemented, did you perform the transition correctly?
+6. Check for control signals conditions. Did you consider every cases.
+7. Check for sequential assignment and combinational assignment, did you mix use them?
+8. Check for Concatenation and Sign-extension error, did you forget to align or sign-extended the value?
+9. Check for data alignment. When sharing registers, this might occurs, i.e. fitting a 10 bit data into 32 bit register, sign-extension has to be made if it is a signed value or depends on your representation. {12'b0,value,12'b0}, value a B.
+10. Check for VIVADO ERROS and WARNING, this can save you lots of time.
+11. Check for VIVADO SYNTHESIS WARNING, this also can save you lots of time before using DC.
