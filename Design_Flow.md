@@ -1,9 +1,15 @@
 # Design flow
 In every parts, you should make notes, DRAW!!!! and clearly specify WTF you are doing.
-
 ## DRAW THE BLOCK DIAGRAM PLEASE
 - Drawing the block diagram and specify the signals can aid your debug and allow you to explain your circuit to others.
 It also allows you to review your code or modify your code faster even 1 year later or so. Since you DREW it clearly!
+
+## DFD(Data flow diagran)
+- Data flow diagram is a pretty simple but powerful method to quickly partition your design into different levels of inputs, outputs, process, data flow arrows and data stores.
+- Usually DFD consists of multi-level DFDs, where we try to break problems down in a systematical and data flow way.
+- Remember that no control flow should be specified in this break down process.
+
+- Later DFD can be transformed into a strucural hiearchical diagram.
 
 ## System Level specfication and Spec
 - You must read the spec carefully. High lighting every details first.
@@ -17,6 +23,12 @@ It also allows you to review your code or modify your code faster even 1 year la
 e.g. No one would ever run non-parralizable algorithm on GPU = =, this is handled by OoO CPU. However, parrallel algorithm works fine on GPU but terrible in OoO CPU. Use Amdahl's law to first examine the speedup of your design idea you want to scale up.
 
 > This step should be carefully examined and is the most important step, do not miss the corner cases. Spending a day on this step is alright.
+
+## Decision tress and Decision tables
+1. When modeling complex programming logics, drawing out a decision table or decision tree might be a great option to identify all the possible outcomes of the logic you are going to make.
+2. Decision tables consists of inputs, outputs, and check and table.
+3. Decision trees are tree structures with decision nodes as conditions and outputs nodes as actions, is also a great way to represent your complex thought.
+4. Doing one of these two in small decision making design can prevent yourself from missing corner cases.
 
 ## ASMD(Control)
 - Specify the WORD(Width of your datapath), the WORD is usually determined by the maximum width of the memory. For example, MIPS architecture has a 32-bit word. Doing so can at least ensure the data be aligned correctly, also simplify your design if you want to optimize your circuit.
