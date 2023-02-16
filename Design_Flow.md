@@ -72,7 +72,7 @@ e.g. No one would ever run non-parralizable algorithm on GPU = =, this is handle
 
 # My naming convention
 0.  interfaces should be the priority for each subBlocks that is going to connect to other subBlocks.e.g. dataOut_rq, dataOut_data,dataOut_rdy. All belongs to dataOut interface.
-1.  control_signal as $__IDLE__$
+1.  control_signal as ```state_idle```
 2.  flags as _F, status flag as _sF. (status flags are implemented in register)
 3.  register as _ff
 4.  I/O as _o , _i
@@ -95,7 +95,7 @@ e.g. No one would ever run non-parralizable algorithm on GPU = =, this is handle
 
     localparam IDLE = 4'b0000;
 
-    wire __IDLE__ = CurState_ff == IDLE;
+    wire state_idle = CurState_ff == IDLE;
 
     reg[`HALFWORD-1:0]   weight_hW_ff;
     reg[`HALFWORD-1:0]   kernal_hW_ff;
@@ -105,13 +105,13 @@ e.g. No one would ever run non-parralizable algorithm on GPU = =, this is handle
     wire[2*`WORD-1:0]    mulResult_W5b;
     wire[2*`WORD-1:0]    macResult_W5b_w;
 
-    wire Clr;
+    wire ClrData = state_idle;
 
     //DP
     //NOTE: No RST is needed for this datapath
     always@(posedge clk)
     begin: REGISTERS_INIT
-        if(__IDLE__)
+        if(state_idle)
         begin
             weight_hW_ff <= 16'd0;
             kernal_hW_ff <= 16'd0;
@@ -158,6 +158,9 @@ e.g. No one would ever run non-parralizable algorithm on GPU = =, this is handle
 
 
 ## Debug Notes
+### Problems of algorithm
+1. Retrace or recheck the algorithm you use, did you miss some important info? Or did you misunderstand the spec?
+2. Discuss with others about your thought of the algorithm. Trace it again! Or you some High-level language to proof that it is valid and working!
 ### Hardware and problems of microarchtiecture
 1. Check for each always block, have you assigned the wrong signal value?
 2. Check for bit Width declaration, have you assigned the wrong bit Width to your signal?
@@ -173,6 +176,10 @@ e.g. No one would ever run non-parralizable algorithm on GPU = =, this is handle
 12. Check for VIVADO SYNTHESIS ERROR AND WARNINGS, this also can save you lots of time before using DC.
 13. Beware to make changes on the paper you scratched whenever your try to modify your code.
 
-### Problems of algorithm
-1. Retrace or recheck the algorithm you use, did you miss some important info? Or did you misunderstand the spec?
-2. Discuss with others about your thought of the algorithm. Trace it again! Or you some High-level language to proof that it is valid and working!
+### Problems in DC
+1. Suggest compile your design first in medium mode first, otherwise if you compile it in high or compile_ultra first, some part of your circuit might get optimized which might or might not leads to functional errors.
+2. Forget to add -load_delay net leads to wrong annotation rate, remember to add the following command to check for it when doing gate level simulation.
+
+```
+    -diag=sdf:verbose
+```
