@@ -87,7 +87,7 @@ e.g. No one would ever run non-parralizable algorithm on GPU = =, this is handle
 1.  control_signal as ```state_idle```
 2.  flags as _F, status flag as _sF. (status flags are implemented in register)
 3.  register as _ff
-4.  I/O as _o , _i
+4.  I/O as o_ , i_
 5.  negedge triggered as _n
 6.  reading from a register using register renaming as _r
 7.  writing into a register using register renaming as _w
@@ -97,6 +97,12 @@ e.g. No one would ever run non-parralizable algorithm on GPU = =, this is handle
 11. Control signals starts with Capital letter, inner data signals starts with lowercase.
 
 ```verilog
+module(
+    input[`HALFWORD-1:0] i_weight_hW,
+    input[`HALFWORD-1:0] i_kernal_hW,
+    input[`HALFWORD-1:0] i_bias_hW,
+    output[`HALFWORD-1:0] reg o_result_hW_ff;
+);
     `define BYTE 8
     `define HALFWORD 16
     `define WORD 4*`BYTE
@@ -125,9 +131,9 @@ e.g. No one would ever run non-parralizable algorithm on GPU = =, this is handle
     begin: REGISTERS_INIT
         if(state_idle)
         begin
-            weight_hW_ff <= 16'd0;
-            kernal_hW_ff <= 16'd0;
-            temp_W5b_ff <=  37'd0;
+            weight_hW_ff <= i_weight_hW;
+            kernal_hW_ff <= i_kernal_hW;
+            temp_W5b_ff <=  i_bias_hW;
         end
         else
         begin
