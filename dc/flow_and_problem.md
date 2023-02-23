@@ -1,8 +1,20 @@
 # Flow
 1. Find db file, for our lab, search for icsl7 -> usr -> cad -> find the db file
 
+# File system
+1. Suggest the following file system.
+    - Seperate files using 3 folders, syn,sim,hdl
+    - Only do dc within sim
+    - In sim further seperate the file into scripts,report,netlist
+# CheckList
+1. Remember to check whether tsmcneg13.v exists within your file
+2. Check whether the path in testfixture,dc_setup and synopsys_dc_setup is correct
+3. scripts can be created for easier automation.
+4. Clean up files scripts can also be created to simplify the flow.
+5. Check the .sdc timing constraints file, also beware that whether the cycle constraint you set is the same as the one you set within the testbench.
+
 # Error
-1. Setup must be first considered otherwise error might occur.
+1. Setup in scripts must be first considered otherwise error might occur.
 2. Must first check naming to clear out path for dc.
 3. source file
 4. Polarity problem occurs due to negedge or posedge rst. For negedge remember to use ~rst.
