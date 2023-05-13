@@ -180,6 +180,7 @@ module(
 1. Retrace or recheck the algorithm you use, did you miss some important info? Or did you misunderstand the spec?
 2. Discuss with others about your thought of the algorithm. Trace it again! Or you some High-level language to proof that it is valid and working!
 ### Hardware and problems of microarchtiecture
+0. When performing signed arithmetic, you must make sure the operands are both signed, if 1 of them is not signed, unexpected erros might occurs! Use $signed() , or simply use two's complement or manual sign-extension.
 1. Check for each always block, have you assigned the wrong signal value?
 2. Check for bit Width declaration, have you assigned the wrong bit Width to your signal?
 3. Check for arithmetic. Which data type are you trying to use? Are the operands of the same data type?
